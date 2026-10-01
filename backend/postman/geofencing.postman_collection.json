@@ -1,0 +1,18 @@
+{
+  "info":{"name":"Geofencing API","schema":"https://schema.getpostman.com/json/collection/v2.1.0/collection.json"},
+  "variable":[{"key":"baseUrl","value":"http://localhost:8000"},{"key":"token","value":""},{"key":"deviceId","value":"1"},{"key":"geofenceId","value":"1"}],
+  "item":[
+    {"name":"Health","request":{"method":"GET","url":"{{baseUrl}}/health"}},
+    {"name":"Register","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\"username\":\"operator1\",\"email\":\"operator1@example.com\",\"password\":\"Password@123\"}"},"url":"{{baseUrl}}/api/v1/auth/register"}},
+    {"name":"Login","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\"username\":\"admin\",\"password\":\"Admin@12345\"}"},"url":"{{baseUrl}}/api/v1/auth/login"}},
+    {"name":"Current User","request":{"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url":"{{baseUrl}}/api/v1/auth/me"}},
+    {"name":"Create Device","request":{"method":"POST","header":[{"key":"Authorization","value":"Bearer {{token}}"},{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\"device_identifier\":\"DEVICE-001\",\"name\":\"Demo Device\"}"},"url":"{{baseUrl}}/api/v1/devices"}},
+    {"name":"Create Circle Geofence","request":{"method":"POST","header":[{"key":"Authorization","value":"Bearer {{token}}"},{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\"name\":\"Office\",\"description\":\"Office boundary\",\"geofence_type\":\"circle\",\"center_latitude\":13.0827,\"center_longitude\":80.2707,\"radius_meters\":500,\"boundary_tolerance_meters\":10,\"event_rules\":{\"enter\":true,\"exit\":true,\"inside\":true,\"outside\":true}}"},"url":"{{baseUrl}}/api/v1/geofences"}},
+    {"name":"Create Polygon Geofence","request":{"method":"POST","header":[{"key":"Authorization","value":"Bearer {{token}}"},{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\"name\":\"Campus\",\"geofence_type\":\"polygon\",\"points\":[{\"latitude\":13.082,\"longitude\":80.270},{\"latitude\":13.084,\"longitude\":80.270},{\"latitude\":13.084,\"longitude\":80.273},{\"latitude\":13.082,\"longitude\":80.273}],\"boundary_tolerance_meters\":10}"},"url":"{{baseUrl}}/api/v1/geofences"}},
+    {"name":"Process Location","request":{"method":"POST","header":[{"key":"Authorization","value":"Bearer {{token}}"},{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\"device_id\":1,\"latitude\":13.0827,\"longitude\":80.2707,\"timestamp\":\"2026-09-28T10:00:00Z\"}"},"url":"{{baseUrl}}/api/v1/locations/process"}},
+    {"name":"Current Locations","request":{"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url":"{{baseUrl}}/api/v1/locations/current"}},
+    {"name":"Location History","request":{"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url":"{{baseUrl}}/api/v1/locations/history"}},
+    {"name":"Event History","request":{"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url":"{{baseUrl}}/api/v1/locations/events"}},
+    {"name":"List Geofences","request":{"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url":"{{baseUrl}}/api/v1/geofences"}}
+  ]
+}
